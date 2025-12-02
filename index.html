@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SparkleClean - Dry Cleaning Service</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="../Style/style.css">
+    <script src="../Scripts/main.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>✨ SparkleClean</h1>
+            <p>Premium Dry Cleaning & Laundry Services</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('auth')">
+                <span class="material-icons">account_circle</span>
+                Login / Register
+            </button>
+            <button class="tab-btn" onclick="switchTab('products')">
+                <span class="material-icons">storefront</span>
+                Services
+            </button>
+            <button class="tab-btn" onclick="switchTab('cart')">
+                <span class="material-icons">shopping_cart</span>
+                Cart <span id="cartBadge" class="badge">0</span>
+            </button>
+            <button class="tab-btn" onclick="switchTab('checkout')">
+                <span class="material-icons">payment</span>
+                Checkout
+            </button>
+            <button class="tab-btn" onclick="switchTab('about')">
+                <span class="material-icons">info</span>
+                About Us
+            </button>
+        </div>
+
+<!-- AUTH SECTION (Login & Register Combined) -->
+<div id="auth" class="content-section active">
+    <div class="card">
+        <!-- Internal Tabs for Login/Register -->
+        <div class="auth-tabs">
+            <button class="auth-tab-btn active" onclick="switchAuthMode('login')">
+                <span class="material-icons">login</span>
+                Login
+            </button>
+            <button class="auth-tab-btn" onclick="switchAuthMode('register')">
+                <span class="material-icons">person_add</span>
+                Register
+            </button>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <div id="loginFormContainer" class="auth-form-container">
+            <h2>🔐 Login to Your Account</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">
+                        <span class="material-icons">person</span>
+                        Username *
+                    </label>
+                    <input type="text" id="loginUsername" placeholder="Enter username">
+                    <span class="error-message" id="loginUsernameError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">
+                        <span class="material-icons">lock</span>
+                        Password *
+                    </label>
+                    <input type="password" id="loginPassword" placeholder="Enter password">
+                    <span class="error-message" id="loginPasswordError"></span>
+                </div>
+
+                <button type="submit" class="btn">
+                    <span class="material-icons">login</span>
+                    Login
+                </button>
+
+                <p class="form-link">Don't have an account? <a href="#" onclick="switchAuthMode('register')">Register here</a></p>
+            </form>
+
+            <div id="loginSuccess" class="success-message" style="display: none;"></div>
+        </div>
+
+        <!-- REGISTRATION FORM -->
+        <div id="registerFormContainer" class="auth-form-container" style="display: none;">
+            <h2>📝 Create Your Account</h2>
+            <form id="registerForm">
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="regFullName">
+                            <span class="material-icons">person</span>
+                            Full Name *
+                        </label>
+                        <input type="text" id="regFullName" placeholder="John Doe">
+                        <span class="error-message" id="regFullNameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regDOB">
+                            <span class="material-icons">cake</span>
+                            Date of Birth *
+                        </label>
+                        <input type="date" id="regDOB">
+                        <span class="error-message" id="regDOBError"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regEmail">
+                        <span class="material-icons">email</span>
+                        Email Address *
+                    </label>
+                    <input type="email" id="regEmail" placeholder="john@example.com">
+                    <span class="error-message" id="regEmailError"></span>
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="regUsername">
+                            <span class="material-icons">badge</span>
+                            Username *
+                        </label>
+                        <input type="text" id="regUsername" placeholder="Choose username">
+                        <span class="error-message" id="regUsernameError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPassword">
+                            <span class="material-icons">lock</span>
+                            Password *
+                        </label>
+                        <input type="password" id="regPassword" placeholder="Password (must be at least 8 characters long)">
+                        <span class="error-message" id="regPasswordError"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="regConfirmPassword">
+                        <span class="material-icons">lock_outline</span>
+                        Confirm Password *
+                    </label>
+                    <input type="password" id="regConfirmPassword" placeholder="Re-enter password">
+                    <span class="error-message" id="regConfirmPasswordError"></span>
+                </div>
+
+                <button type="submit" class="btn">
+                    <span class="material-icons">how_to_reg</span>
+                    Create Account
+                </button>
+
+                <p class="form-link">Already have an account? <a href="#" onclick="switchAuthMode('login')">Login here</a></p>
+            </form>
+
+            <div id="registerSuccess" class="success-message" style="display: none;"></div>
+        </div>
+    </div>
+</div>
+
+        <!-- PRODUCTS/SERVICES SECTION -->
+        <div id="products" class="content-section">
+            <div class="card">
+                <h2>🧺 Our Services</h2>
+                <p style="text-align: center; color: #666; margin-bottom: 2rem;">Select items to add to your cart</p>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products generated by JavaScript -->
+                </div>
+
+                <!-- Special Offers -->
+                <div class="offers-banner">
+                    <h3>🎉 Special Offers</h3>
+                    <div class="offers-list">
+                        <div class="offer-item">
+                            <span class="material-icons">local_offer</span>
+                            <span>10% off orders over $2000</span>
+                        </div>
+                        <div class="offer-item">
+                            <span class="material-icons">local_shipping</span>
+                            <span>Free pickup & delivery for orders over $3000</span>
+                        </div>
+                        <div class="offer-item">
+                            <span class="material-icons">bolt</span>
+                            <span>Same-day service available (+$1000)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CART SECTION -->
+        <div id="cart" class="content-section">
+            <div class="card">
+                <h2>🛒 Shopping Cart</h2>
+
+                <!-- Empty Cart Message -->
+                <div id="emptyCartMessage" class="empty-message">
+                    <span class="material-icons">shopping_cart</span>
+                    <p>Your cart is empty</p>
+                    <button class="btn" onclick="switchTab('products')">Browse Services</button>
+                </div>
+
+                <!-- Cart Items -->
+                <div id="cartContent" style="display: none;">
+                    <div id="cartItems" class="cart-items-list">
+                        <!-- Cart items generated by JavaScript -->
+                    </div>
+
+                    <!-- Cart Summary -->
+                    <div class="cart-summary">
+                        <h3>Order Summary</h3>
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="cartSubtotal">$0.00</span>
+                        </div>
+                        <div class="summary-row discount-row" id="discountRow" style="display: none;">
+                            <span>Discount (10%):</span>
+                            <span id="cartDiscount">-$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Tax (15%):</span>
+                            <span id="cartTax">$0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Delivery:</span>
+                            <span id="cartDelivery">Calculated at checkout</span>
+                        </div>
+                        <div class="summary-row total-row">
+                            <span>Total:</span>
+                            <span id="cartTotal">$0.00</span>
+                        </div>
+
+                        <div class="cart-actions">
+                            <button class="btn btn-primary" onclick="proceedToCheckout()">
+                                <span class="material-icons">payment</span>
+                                Proceed to Checkout
+                            </button>
+                            <button class="btn btn-secondary" onclick="clearCart()">
+                                <span class="material-icons">delete</span>
+                                Clear Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHECKOUT SECTION -->
+        <div id="checkout" class="content-section">
+            <div class="card">
+                <h2>💳 Checkout</h2>
+
+                <form id="checkoutForm">
+                    <h3 style="margin-top: 0;">Customer Information</h3>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="checkoutName">
+                                <span class="material-icons">person</span>
+                                Full Name *
+                            </label>
+                            <input type="text" id="checkoutName" placeholder="John Doe">
+                            <span class="error-message" id="checkoutNameError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="checkoutPhone">
+                                <span class="material-icons">phone</span>
+                                Phone Number *
+                            </label>
+                            <input type="tel" id="checkoutPhone" placeholder="(876) 555-1234">
+                            <span class="error-message" id="checkoutPhoneError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkoutEmail">
+                            <span class="material-icons">email</span>
+                            Email Address *
+                        </label>
+                        <input type="email" id="checkoutEmail" placeholder="john@example.com">
+                        <span class="error-message" id="checkoutEmailError"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkoutAddress">
+                            <span class="material-icons">home</span>
+                            Pickup/Delivery Address *
+                        </label>
+                        <textarea id="checkoutAddress" rows="3" placeholder="Enter complete address"></textarea>
+                        <span class="error-message" id="checkoutAddressError"></span>
+                    </div>
+
+                    <h3>Pickup Schedule</h3>
+                    <div class="grid-2">
+                        <div class="form-group">
+                            <label for="checkoutDate">
+                                <span class="material-icons">today</span>
+                                Pickup Date *
+                            </label>
+                            <input type="date" id="checkoutDate">
+                            <span class="error-message" id="checkoutDateError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="checkoutTime">
+                                <span class="material-icons">schedule</span>
+                                Pickup Time *
+                            </label>
+                            <select id="checkoutTime">
+                                <option value="">Select Time</option>
+                                <option value="8-10am">8:00 AM - 10:00 AM</option>
+                                <option value="10-12pm">10:00 AM - 12:00 PM</option>
+                                <option value="12-2pm">12:00 PM - 2:00 PM</option>
+                                <option value="2-4pm">2:00 PM - 4:00 PM</option>
+                                <option value="4-6pm">4:00 PM - 6:00 PM</option>
+                            </select>
+                            <span class="error-message" id="checkoutTimeError"></span>
+                        </div>
+                    </div>
+
+                    <h3>Payment Method</h3>
+                    <div class="payment-options">
+                        <label class="radio-label">
+                            <input type="radio" name="payment" value="cash" checked>
+                            <span><span class="material-icons">money</span> Cash on Delivery</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="payment" value="card">
+                            <span><span class="material-icons">credit_card</span> Credit/Debit Card</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="payment" value="mobile">
+                            <span><span class="material-icons">phone_android</span> Mobile Payment</span>
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkoutNotes">
+                            <span class="material-icons">notes</span>
+                            Special Instructions (Optional)
+                        </label>
+                        <textarea id="checkoutNotes" rows="3" placeholder="Any special care requirements, stains, etc."></textarea>
+                    </div>
+
+                    <!-- Order Summary in Checkout -->
+                    <div class="checkout-summary">
+                        <h3>Order Summary</h3>
+                        <div id="checkoutSummaryItems"></div>
+                        <div class="summary-totals">
+                            <div class="summary-row">
+                                <span>Subtotal:</span>
+                                <span id="checkoutSubtotal">$0.00</span>
+                            </div>
+                            <div class="summary-row" id="checkoutDiscountRow" style="display: none;">
+                                <span>Discount (10%):</span>
+                                <span id="checkoutDiscount">-$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax (15%):</span>
+                                <span id="checkoutTax">$0.00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Delivery:</span>
+                                <span id="checkoutDelivery">FREE</span>
+                            </div>
+                            <div class="summary-row total-row">
+                                <span>Total Amount:</span>
+                                <span id="checkoutTotal">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="material-icons">check_circle</span>
+                            Confirm Order
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="switchTab('cart')">
+                            <span class="material-icons">arrow_back</span>
+                            Back to Cart
+                        </button>
+                    </div>
+                </form>
+
+                <div id="checkoutSuccess" class="success-message" style="display: none;"></div>
+            </div>
+        </div>
+
+        <!-- ABOUT US SECTION -->
+        <div id="about" class="content-section">
+            <div class="card">
+                <div class="about-header">
+                    <div class="logo-big">✨</div>
+                    <h2>SparkleClean</h2>
+                    <p class="tagline">"Where Every Garment Shines"</p>
+                </div>
+
+                <div class="about-section">
+                    <h3><span class="material-icons">flag</span> Our Mission</h3>
+                    <p>To provide exceptional dry cleaning and laundry services that exceed our customers' expectations through quality, convenience, and care. We are committed to treating every garment with the utmost attention to detail while maintaining eco-friendly practices.</p>
+                </div>
+
+                <div class="about-section">
+                    <h3><span class="material-icons">visibility</span> Our Vision</h3>
+                    <p>To become the most trusted and preferred dry cleaning service in Jamaica, known for our commitment to excellence, customer satisfaction, and environmental responsibility.</p>
+                </div>
+
+                <!-- CRITICAL: Student Information for Assignment -->
+                <div class="student-info">
+                    <h3>📚 Project Information</h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <span class="material-icons">person</span>
+                            <div>
+                                <strong>Student Name:</strong>
+                                <p>Jamel Reid</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="material-icons">badge</span>
+                            <div>
+                                <strong>Student ID:</strong>
+                                <p>2404251</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="material-icons">email</span>
+                            <div>
+                                <strong>Email:</strong>
+                                <p><a href="mailto:jamelreid@students.utech.edu.jm">jamelreid@students.utech.edu.jm</a></p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="material-icons">school</span>
+                            <div>
+                                <strong>Module Code:</strong>
+                                <p>CIT2011 - Web Programming</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="material-icons">assignment</span>
+                            <div>
+                                <strong>Assignment:</strong>
+                                <p>Individual Assignment #2</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="material-icons">schedule</span>
+                            <div>
+                                <strong>Class Day/Time:</strong>
+                                <p>Thursday 1:00 PM - 3:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information with mailto -->
+                <div class="contact-section">
+                    <h3>📞 Contact Us</h3>
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <span class="material-icons">location_on</span>
+                            <div>
+                                <strong>Address:</strong>
+                                <p>123 Main Street<br>Spanish Town, St. Catherine<br>Jamaica</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="material-icons">phone</span>
+                            <div>
+                                <strong>Phone:</strong>
+                                <p>(876) 555-0100</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <span class="material-icons">email</span>
+                            <div>
+                                <strong>Email:</strong>
+                                <p><a href="mailto:1234567@utech.edu.jm?subject=SparkleClean Inquiry&body=Hello, I would like to know more about your services...">1234567@utech.edu.jm</a></p>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="mailto:jamelreid@students.utech.edu.jm?subject=SparkleClean Inquiry" class="btn">
+                        <span class="material-icons">send</span>
+                        Send Us a Message
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+ 
+
+        /* ============================================
+           IA#2 REQUIREMENT: TAB SWITCHING
+           DOM Manipulation - Showing/hiding sections
+           ============================================ */
+
+        function switchAuthMode(mode) {
+            const loginContainer = document.getElementById('loginFormContainer');
+            const registerContainer = document.getElementById('registerFormContainer');
+            const loginTab = document.querySelector('.auth-tab-btn:first-child');
+            const registerTab = document.querySelector('.auth-tab-btn:last-child');
+
+            if (mode === 'login') {
+                loginContainer.style.display = 'block';
+                registerContainer.style.display = 'none';
+                loginTab.classList.add('active');
+                registerTab.classList.remove('active');
+            } else {
+                loginContainer.style.display = 'none';
+                registerContainer.style.display = 'block';
+                loginTab.classList.remove('active');
+                registerTab.classList.add('active');
+            }
+        }
+        
+        function switchTab(tabName) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Remove active from all nav buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Show selected section
+            const targetSection = document.getElementById(tabName);
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Add active to clicked button
+            if (event && event.target) {
+                event.target.closest('.tab-btn')?.classList.add('active');
+            }
+
+            // Update displays when switching to cart or checkout
+            if (tabName === 'cart') {
+                displayCart();
+            } else if (tabName === 'checkout') {
+                displayCheckoutSummary();
+            } else if (tabName === 'auth') {
+                // Reset to login form when switching to auth tab
+                switchAuthMode('login');
+            }
+        }
+
+        /* ============================================
+           IA#2 REQUIREMENT: FORM VALIDATION (LOGIN)
+           ============================================ */
+        
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop page refresh
+
+            // Get input values
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            // Get error elements
+            const usernameError = document.getElementById('loginUsernameError');
+            const passwordError = document.getElementById('loginPasswordError');
+
+            // Clear previous errors
+            usernameError.textContent = '';
+            passwordError.textContent = '';
+
+            let isValid = true;
+
+            // Validate username
+            if (username === '') {
+                usernameError.textContent = '❌ Username is required';
+                isValid = false;
+            }
+
+            // Validate password
+            if (password === '') {
+                passwordError.textContent = '❌ Password is required';
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Check credentials
+            const user = users.find(u => u.username === username && u.password === password);
+
+            if (user) {
+                document.getElementById('loginSuccess').style.display = 'block';
+                document.getElementById('loginSuccess').innerHTML = 
+                    `✅ Welcome back, ${user.name}! <button class="btn" onclick="switchTab('products')" style="margin-top: 1rem;">Browse Services</button>`;
+            } else {
+                passwordError.textContent = '❌ Invalid username or password';
+            }        
+        });
+
+        /* ============================================
+           IA#2 REQUIREMENT: FORM VALIDATION (REGISTRATION)
+           Complex validation with multiple checks
+           ============================================ */
+        
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Get all values
+            const fullName = document.getElementById('regFullName').value.trim();
+            const dob = document.getElementById('regDOB').value;
+            const email = document.getElementById('regEmail').value.trim();
+            const username = document.getElementById('regUsername').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+
+            // Clear all errors
+            document.querySelectorAll('#registerFormContainer .error-message').forEach(el => el.textContent = '');
+
+            let isValid = true;
+
+            // Validate Full Name
+            if (fullName === '') {
+                document.getElementById('regFullNameError').textContent = '❌ Name is required';
+                isValid = false;
+            } else if (fullName.length < 2) {
+                document.getElementById('regFullNameError').textContent = '❌ Name must be at least 2 characters';
+                isValid = false;
+            }
+
+            // Validate Date of Birth (must be 18+)
+            if (dob === '') {
+                document.getElementById('regDOBError').textContent = '❌ Date of birth is required';
+                isValid = false;
+            } else {
+                const birthDate = new Date(dob);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDiff = today.getMonth() - birthDate.getMonth();
+                if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+                if (age < 18) {
+                    document.getElementById('regDOBError').textContent = '❌ You must be at least 18 years old';
+                    isValid = false;
+                }
+            }
+
+            // Validate Email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === '') {
+                document.getElementById('regEmailError').textContent = '❌ Email is required';
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById('regEmailError').textContent = '❌ Invalid email format';
+                isValid = false;
+            }
+
+            // Validate Username
+            if (username === '') {
+                document.getElementById('regUsernameError').textContent = '❌ Username is required';
+                isValid = false;
+            } else if (username.length < 4) {
+                document.getElementById('regUsernameError').textContent = '❌ Username must be at least 4 characters';
+                isValid = false;
+            }
+
+            // Validate Password
+            if (password === '') {
+                document.getElementById('regPasswordError').textContent = '❌ Password is required';
+                isValid = false;
+            } else if (password.length < 6) {
+                document.getElementById('regPasswordError').textContent = '❌ Password must be at least 6 characters';
+                isValid = false;
+            }
+
+            // Validate Confirm Password
+            if (confirmPassword === '') {
+                document.getElementById('regConfirmPasswordError').textContent = '❌ Please confirm password';
+                isValid = false;
+            } else if (password !== confirmPassword) {
+                document.getElementById('regConfirmPasswordError').textContent = '❌ Passwords do not match';
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Save user
+            users.push({ username, password, name: fullName, email });
+
+            // Show success
+            document.getElementById('registerSuccess').style.display = 'block';
+            document.getElementById('registerSuccess').innerHTML = 
+                `✅ Account created successfully! <button class="btn" onclick="switchAuthMode('login')" style="margin-top: 1rem;">Login Now</button>`;
+
+            // Reset form
+            document.getElementById('registerForm').reset();
+
+            // Switch to login mode after successful registration
+            switchAuthMode('login');
+        });
+
+        /* ============================================
+           IA#2 REQUIREMENT: DYNAMIC HTML GENERATION
+           Creating product cards using JavaScript
+           ============================================ */
+        
+        function displayProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            services.forEach(service => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <span class="material-icons product-icon">${service.icon}</span>
+                    <h3>${service.name}</h3>
+                    <div class="product-price">$${service.price.toFixed(2)}</div>
+                    <button class="btn-add" onclick="addToCart(${service.id})">
+                        <span class="material-icons">add_shopping_cart</span>
+                        Add to Cart
+                    </button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        /* ============================================
+           IA#2 REQUIREMENT: ARRAY MANIPULATION
+           Adding items to cart
+           ============================================ */
+        
+        function addToCart(serviceId) {
+            const service = services.find(s => s.id === serviceId);
+            if (!service) return;
+
+            // Check if already in cart
+            const existing = cart.find(item => item.id === serviceId);
+
+            if (existing) {
+                existing.quantity++;
+                alert(`${service.name} quantity increased to ${existing.quantity}`);
+            } else {
+                cart.push({
+                    id: service.id,
+                    name: service.name,
+                    price: service.price,
+                    quantity: 1
+                });
+                alert(`${service.name} added to cart!`);
+            }
+
+            updateCartBadge();
+        }
+
+        /* ============================================
+           IA#2 REQUIREMENT: CALCULATIONS
+           Calculate totals with discount and tax
+           ============================================ */
+        
+        function calculateTotals() {
+            // Calculate subtotal
+            let subtotal = 0;
+            for (let i = 0; i < cart.length; i++) {
+                subtotal += cart[i].price * cart[i].quantity;
+            }
+
+            // Calculate discount (10% if over $50)
+            let discount = 0;
+            if (subtotal > 50) {
+                discount = subtotal * 0.10;
+            }
+
+            // Calculate tax (15%)
+            let taxableAmount = subtotal - discount;
+            let tax = taxableAmount * 0.15;
+
+            // Calculate total
+            let total = taxableAmount + tax;
+
+            // Free delivery if over $30
+            let deliveryText = 'Calculated at checkout';
+            if (total >= 30) {
+                deliveryText = 'FREE ✓';
+            }
+
+            return {
+                subtotal: subtotal.toFixed(2),
+                discount: discount.toFixed(2),
+                tax: tax.toFixed(2),
+                total: total.toFixed(2),
+                deliveryText: deliveryText,
+                hasDiscount: discount > 0
+            };
+        }
+
+        /* ============================================
+           IA#2 REQUIREMENT: DOM MANIPULATION
+           Updating cart badge count
+           ============================================ */
+        
+        function updateCartBadge() {
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            badge.textContent = totalItems;
+            badge.style.display = totalItems > 0 ? 'inline-block' : 'none';
+        }
+
+        /* ============================================
+           IA#2 REQUIREMENT: DISPLAY CART
+           DOM Manipulation - Creating cart items
+           ============================================ */
+        
+        function displayCart() {
+            const emptyMessage = document.getElementById('emptyCartMessage');
+            const cartContent = document.getElementById('cartContent');
+            const cartItems = document.getElementById('cartItems');
+
+            if (cart.length === 0) {
+                emptyMessage.style.display = 'block';
+                cartContent.style.display = 'none';
+                return;
+            }
+
+            emptyMessage.style.display = 'none';
+            cartContent.style.display = 'block';
+            cartItems.innerHTML = '';
+
+            // Display each cart item
+            cart.forEach(item => {
+                const itemTotal = (item.price * item.quantity).toFixed(2);
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'cart-item';
+                itemDiv.innerHTML = `
+                    <div class="item-info">
+                        <h4>${item.name}</h4>
+                        <p class="item-price">${item.price.toFixed(2)} each</p>
+                    </div>
+                    <div class="item-controls">
+                        <div class="qty-control">
+                            <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">
+                                <span class="material-icons">remove</span>
+                            </button>
+                            <span class="qty-display">${item.quantity}</span>
+                            <button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">
+                                <span class="material-icons">add</span>
+                            </button>
+                        </div>
+                        <div class="item-total">${itemTotal}</div>
+                        <button class="btn-remove" onclick="removeFromCart(${item.id})">
+                            <span class="material-icons">delete</span>
+                        </button>
+                    </div>
+                `;
+                cartItems.appendChild(itemDiv);
+            });
+
+            // Update totals
+            const totals = calculateTotals();
+            document.getElementById('cartSubtotal').textContent = '$' + totals.subtotal;
+            document.getElementById('cartDiscount').textContent = '-$' + totals.discount;
+            document.getElementById('cartTax').textContent = '$' + totals.tax;
+            document.getElementById('cartDelivery').textContent = totals.deliveryText;
+            document.getElementById('cartTotal').textContent = '$' + totals.total;
+
+            // Show/hide discount row
+            const discountRow = document.getElementById('discountRow');
+            discountRow.style.display = totals.hasDiscount ? 'flex' : 'none';
+        }
+
+        /* ============================================
+           IA#2 REQUIREMENT: ARRAY MANIPULATION
+           Changing quantity and removing items
+           ============================================ */
+        
+        function changeQuantity(itemId, change) {
+            const item = cart.find(i => i.id === itemId);
+            if (!item) return;
+
+            item.quantity += change;
+
+            if (item.quantity <= 0) {
+                removeFromCart(itemId);
+            } else {
+                displayCart();
+                updateCartBadge();
+            }
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            displayCart();
+            updateCartBadge();
+        }
+
+        function clearCart() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                cart = [];
+                displayCart();
+                updateCartBadge();
+            }
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            switchTab('checkout');
+        }
+
+        /* ============================================
+           IA#2 REQUIREMENT: CHECKOUT FORM VALIDATION
+           Complex validation with date checking
+           ============================================ */
+        
+        document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            // Get all values
+            const name = document.getElementById('checkoutName').value.trim();
+            const phone = document.getElementById('checkoutPhone').value.trim();
+            const email = document.getElementById('checkoutEmail').value.trim();
+            const address = document.getElementById('checkoutAddress').value.trim();
+            const date = document.getElementById('checkoutDate').value;
+            const time = document.getElementById('checkoutTime').value;
+            const payment = document.querySelector('input[name="payment"]:checked').value;
+
+            // Clear errors
+            document.querySelectorAll('#checkout .error-message').forEach(el => el.textContent = '');
+
+            let isValid = true;
+
+            // Validate Name
+            if (name === '') {
+                document.getElementById('checkoutNameError').textContent = '❌ Name is required';
+                isValid = false;
+            }
+
+            // Validate Phone
+            if (phone === '') {
+                document.getElementById('checkoutPhoneError').textContent = '❌ Phone is required';
+                isValid = false;
+            } else if (phone.length < 10) {
+                document.getElementById('checkoutPhoneError').textContent = '❌ Invalid phone number';
+                isValid = false;
+            }
+
+            // Validate Email
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (email === '') {
+                document.getElementById('checkoutEmailError').textContent = '❌ Email is required';
+                isValid = false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById('checkoutEmailError').textContent = '❌ Invalid email';
+                isValid = false;
+            }
+
+            // Validate Address
+            if (address === '') {
+                document.getElementById('checkoutAddressError').textContent = '❌ Address is required';
+                isValid = false;
+            } else if (address.length < 10) {
+                document.getElementById('checkoutAddressError').textContent = '❌ Please enter complete address';
+                isValid = false;
+            }
+
+            // Validate Date (must not be in past)
+            if (date === '') {
+                document.getElementById('checkoutDateError').textContent = '❌ Date is required';
+                isValid = false;
+            } else {
+                const selectedDate = new Date(date);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                if (selectedDate < today) {
+                    document.getElementById('checkoutDateError').textContent = '❌ Date cannot be in the past';
+                    isValid = false;
+                }
+            }
+
+            // Validate Time
+            if (time === '') {
+                document.getElementById('checkoutTimeError').textContent = '❌ Time is required';
+                isValid = false;
+            }
+
+            if (!isValid) return;
+
+            // Generate order ID
+            const orderId = 'SC' + Math.floor(Math.random() * 900000 + 100000);
+            const totals = calculateTotals();
+
+            // Show success
+            document.getElementById('checkoutSuccess').style.display = 'block';
+            document.getElementById('checkoutSuccess').innerHTML = `
+                <div style="text-align: center;">
+                    <span class="material-icons" style="font-size: 4rem; color: #28a745;">check_circle</span>
+                    <h3 style="color: #28a745;">Order Confirmed!</h3>
+                    <p>Your order has been successfully placed.</p>
+                    <p><strong>Order ID:</strong> ${orderId}</p>
+                    <p><strong>Total:</strong> ${totals.total}</p>
+                    <p>Confirmation email sent to: ${email}</p>
+                    <button class="btn" onclick="completePurchase()" style="margin-top: 1rem;">Continue Shopping</button>
+                </div>
+            `;
+
+            // Scroll to success message
+            document.getElementById('checkoutSuccess').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function completePurchase() {
+            cart = [];
+            updateCartBadge();
+            document.getElementById('checkoutForm').reset();
+            document.getElementById('checkoutSuccess').style.display = 'none';
+            switchTab('products');
+        }
+
+        /* ============================================
+           IA#2 REQUIREMENT: DISPLAY CHECKOUT SUMMARY
+           ============================================ */
+        
+        function displayCheckoutSummary() {
+            const summaryItems = document.getElementById('checkoutSummaryItems');
+            summaryItems.innerHTML = '';
+
+            if (cart.length === 0) {
+                summaryItems.innerHTML = '<p style="text-align: center; color: #999;">No items in cart</p>';
+                return;
+            }
+
+            cart.forEach(item => {
+                const itemTotal = (item.price * item.quantity).toFixed(2);
+                const div = document.createElement('div');
+                div.className = 'summary-item';
+                div.innerHTML = `
+                    <span>${item.quantity}x ${item.name}</span>
+                    <span>${itemTotal}</span>
+                `;
+                summaryItems.appendChild(div);
+            });
+
+            const totals = calculateTotals();
+            document.getElementById('checkoutSubtotal').textContent = '$' + totals.subtotal;
+            document.getElementById('checkoutDiscount').textContent = '-$' + totals.discount;
+            document.getElementById('checkoutTax').textContent = '$' + totals.tax;
+            document.getElementById('checkoutDelivery').textContent = totals.deliveryText;
+            document.getElementById('checkoutTotal').textContent = '$' + totals.total;
+
+            const discountRow = document.getElementById('checkoutDiscountRow');
+            discountRow.style.display = totals.hasDiscount ? 'flex' : 'none';
+        }
+
+        /* ============================================
+           IA#2 REQUIREMENT: PAGE INITIALIZATION
+           Run when page loads
+           ============================================ */
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            displayProducts();
+            updateCartBadge();
+            
+            // Set minimum date to today for checkout
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkoutDate').setAttribute('min', today);
+        });
+
+        /* ============================================
+           KEY CONCEPTS DEMONSTRATED:
+           
+           1. DOM MANIPULATION
+              - getElementById, querySelector
+              - createElement, appendChild
+              - classList.add/remove
+              - innerHTML, textContent
+           
+           2. EVENT HANDLING
+              - addEventListener('submit', ...)
+              - addEventListener('click', ...)
+              - event.preventDefault()
+           
+           3. FORM VALIDATION
+              - Empty checks
+              - Length validation
+              - Format validation (email, phone)
+              - Date validation
+              - Password matching
+           
+           4. CALCULATIONS
+              - Loops (for, forEach)
+              - Math operations (+, -, *, /)
+              - Percentage calculations
+              - toFixed() for decimals
+           
+           5. ARRAY METHODS
+              - push() - add to array
+              - find() - find one item
+              - filter() - remove items
+              - forEach() - loop through
+              - reduce() - calculate totals
+           
+           6. CONTROL STRUCTURES
+              - if/else statements
+              - for loops
+              - comparison operators
+              - logical operators (&&, ||)
+           ============================================ */
+              // End of script
+              // ============================================
+    </script>
+</body>
+</html>
